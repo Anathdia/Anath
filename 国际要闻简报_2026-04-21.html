@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>国际要闻简报 2026-04-21</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --orange-start: #FF6B35;
+  --orange-end: #FF4500;
+  --text-dark: #1a1a2e;
+  --text-light: #6b7280;
+  --bg: #f8f9fa;
+  --card-bg: #ffffff;
+  --border: #e5e7eb;
+  --tag-di: #7c3aed;
+  --tag-di-bg: #f3e8ff;
+  --tag-jing: #059669;
+  --tag-jing-bg: #d1fae5;
+  --tag-ji: #2563eb;
+  --tag-ji-bg: #dbeafe;
+  --tag-jun: #4b5563;
+  --tag-jun-bg: #f3f4f6;
+  --tag-wai: #dc2626;
+  --tag-wai-bg: #fee2e2;
+  --tag-she: #9333ea;
+  --tag-she-bg: #f3e8ff;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif; background: var(--bg); color: var(--text-dark); line-height: 1.7; padding: 20px; }
+.container { max-width: 860px; margin: 0 auto; }
+.header { text-align: center; margin-bottom: 24px; }
+.header .date { font-size: 13px; color: var(--text-light); letter-spacing: 1px; }
+.header h1 { font-size: 22px; font-weight: 700; margin-top: 6px; background: linear-gradient(135deg, var(--orange-start), var(--orange-end)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+/* 头条卡片 */
+.topcard { background: linear-gradient(135deg, var(--orange-start), var(--orange-end)); border-radius: 16px; padding: 28px; color: #fff; margin-bottom: 24px; box-shadow: 0 8px 32px rgba(255,107,53,0.3); }
+.topcard .label { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; opacity: 0.85; margin-bottom: 10px; }
+.topcard h2 { font-size: 20px; font-weight: 700; line-height: 1.4; margin-bottom: 14px; }
+.topcard .detail { font-size: 14px; opacity: 0.92; line-height: 1.8; }
+.topcard .risk { margin-top: 16px; background: rgba(0,0,0,0.18); border-radius: 10px; padding: 12px 16px; font-size: 13px; display: flex; align-items: flex-start; gap: 8px; }
+.topcard .risk-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+
+/* 新闻列表 */
+.news-list { display: flex; flex-direction: column; gap: 12px; }
+.news-item { background: var(--card-bg); border-radius: 14px; border: 1px solid var(--border); overflow: hidden; transition: box-shadow 0.2s; }
+.news-item:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.08); }
+.news-header { padding: 16px 18px; display: flex; align-items: center; gap: 10px; cursor: pointer; user-select: none; }
+.news-header .tag { font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 20px; flex-shrink: 0; }
+.tag-di { background: var(--tag-di-bg); color: var(--tag-di); }
+.tag-jing { background: var(--tag-jing-bg); color: var(--tag-jing); }
+.tag-ji { background: var(--tag-ji-bg); color: var(--tag-ji); }
+.tag-jun { background: var(--tag-jun-bg); color: var(--tag-jun); }
+.tag-wai { background: var(--tag-wai-bg); color: var(--tag-wai); }
+.tag-she { background: var(--tag-she-bg); color: var(--tag-she); }
+.news-header .title { font-size: 15px; font-weight: 500; flex: 1; line-height: 1.5; }
+.news-header .time { font-size: 11px; color: var(--text-light); flex-shrink: 0; }
+.news-header .arrow { font-size: 14px; color: var(--text-light); transition: transform 0.25s; flex-shrink: 0; margin-left: 8px; }
+.news-item.open .arrow { transform: rotate(180deg); }
+.news-body { display: none; padding: 0 18px 18px; }
+.news-item.open .news-body { display: block; }
+.news-body p { font-size: 14px; color: #4a5568; line-height: 1.9; border-top: 1px solid var(--border); padding-top: 14px; margin-top: 0; }
+.news-body .source { font-size: 11px; color: #9ca3af; margin-top: 10px; }
+
+.footer { text-align: center; padding: 32px 0 16px; font-size: 12px; color: var(--text-light); }
+.footer a { color: var(--orange-start); text-decoration: none; }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <div class="date">2026年4月21日 · 周二</div>
+    <h1>🌐 国际要闻简报</h1>
+  </div>
+
+  <!-- 头条 -->
+  <div class="topcard">
+    <div class="label">⚡ 今日头条</div>
+    <h2>美伊冲突激化：霍尔木兹海峡再次封锁，局势骤然升温</h2>
+    <div class="detail">当地时间4月21日凌晨，伊朗一艘悬挂本国国旗的货船无视美国军队警告，强行通过霍尔木兹海峡，伊朗革命卫队随即宣布重新封锁该水道。此前美军于19日在阿曼湾向伊朗货船开火，伊朗无人机紧急升空还击，海峡通行量再度暴跌。伊朗议会国家安全委员会主席阿齐兹同日表示，伊方已决定继续与美国谈判，但"并不意味着不惜一切代价"。</div>
+    <div class="risk">
+      <span class="risk-icon">⚠️</span>
+      <div><strong>风险提示：</strong>霍尔木兹海峡承载全球约20%石油运输，一旦持续封锁，将对国际能源供应链造成严重冲击。中东局势急剧升温，外交窗口正在收窄，各方博弈进入关键期。</div>
+    </div>
+  </div>
+
+  <!-- 新闻列表 -->
+  <div class="news-list">
+
+    <!-- 地缘1 -->
+    <div class="news-item" onclick="toggle(this)">
+      <div class="news-header">
+        <span class="tag tag-di">地</span>
+        <span class="title">美伊"拉锯"持续升级：海峡通行反复无常</span>
+        <span class="time">4月20日</span>
+        <span class="arrow">▼</span>
+      </div>
+      <div class="news-body">
+        <p>4月19日，伊朗先是宣布重开霍尔木兹海峡，市场情绪短暂缓和；但随后美国宣布封锁海峡，美军向伊朗商船开火，伊朗革命卫队无人机随即升空还击，局势再度急转直下。据伊朗方面消息，美伊双方均声称对方率先挑衅，真相尚不明朗。分析指出，美伊正在通过层出不穷的封锁措施争夺海峡控制权，航运业面临极大不确定性。</p>
+        <div class="source">来源：新华社、央视新闻</div>
+      </div>
+    </div>
+
+    <!-- 地缘2 -->
+    <div class="news-item" onclick="toggle(this)">
+      <div class="news-header">
+        <span class="tag tag-di">地</span>
+        <span class="title">IMF大幅下调中东经济增速，海湾产油国受冲击最重</span>
+        <span class="time">4月20日</span>
+        <span class="arrow">▼</span>
+      </div>
+      <div class="news-body">
+        <p>国际货币基金组织（IMF）4月20日发布中东与中亚地区经济展望报告，将2026年MENAP地区经济增速大幅下调2.3个百分点至1.4%，为近年最低预测之一。受美伊冲突直接冲击，海湾产油国增长预期下修幅度最高达15个百分点，其中五个国家陷入经济收缩。报告指出，霍尔木兹海峡的封锁措施正在从航油到粮价多个层面冲击全球经济，已接近"临界点"。</p>
+        <div class="source">来源：IMF报告、新浪财经</div>
+      </div>
+    </div>
+
+    <!-- 经济1 -->
+    <div class="news-item" onclick="toggle(this)">
+      <div class="news-header">
+        <span class="tag tag-jing">经</span>
+        <span class="title">美国正式启动第一阶段关税退税，涉及数十亿美元</span>
+        <span class="time">4月20日</span>
+        <span class="arrow">▼</span>
+      </div>
+      <div class="news-body">
+        <p>4月20日起，美国海关与边境保护局（CBP）正式启动第一阶段关税退税工作。这批关税源于2026年2月被美国最高法院裁定为无效的贸易措施，退税总额预计达数十亿美元。不过，CBP设定了严格的申请条件，并非所有贸易商都能立刻获得退税资格。多国出口企业正密切关注后续操作细则，全球贸易体系在经历关税战后迎来新的调整期。</p>
+        <div class="source">来源：财新网、环球时报</div>
+      </div>
+    </div>
+
+    <!-- 科技1 -->
+    <div class="news-item" onclick="toggle(this)">
+      <div class="news-header">
+        <span class="tag tag-ji">技</span>
+        <span class="title">OpenAI三位核心高管同日离职，Sora被关停</span>
+        <span class="time">4月18日</span>
+        <span class="arrow">▼</span>
+      </div>
+      <div class="news-body">
+        <p>AI行业迎来重磅震荡。4月18日，OpenAI首席产品官Kevin Weil、Sora视频生成项目负责人Bill Peebles以及企业应用CTO Srinivas Narayanan三位核心高管同日宣布离职。就在同一天，OpenAI宣布关停Sora视频生成项目及科研工具Prism，公司正将资源全面转向企业业务。此举引发内部激烈争论，多位技术负责人对"探索精神"的丧失表达不满。OpenAI当前估值约8520亿美元，正处于IPO前的关键筹备期。</p>
+        <div class="source">来源：36氪、网易科技</div>
+      </div>
+    </div>
+
+    <!-- 科技2 -->
+    <div class="news-item" onclick="toggle(this)">
+      <div class="news-header">
+        <span class="tag tag-ji">技</span>
+        <span class="title">2026汉诺威工业博览会今日开幕，聚焦AI与机器人</span>
+        <span class="time">4月20日</span>
+        <span class="arrow">▼</span>
+      </div>
+      <div class="news-body">
+        <p>拥有75年历史的汉诺威工业博览会（HANNOVER MESSE 2026）于4月20日至24日在德国汉诺威举办，主题为"工业转型：赋权可持续增长"。本届展会汇聚来自全球98个国家的4500余家企业，设立七大核心展区，AI与机器人技术成为最大亮点。中国企业携最新工业大模型、具身智能解决方案参展，国际展商占比再创新高。展会同期举办多场工业AI论坛，探讨生成式AI如何重塑制造业。</p>
+        <div class="source">来源：汉诺威工博会官网、新华网</div>
+      </div>
+    </div>
+
+    <!-- 军事1 -->
+    <div class="news-item" onclick="toggle(this)">
+      <div class="news-header">
+        <span class="tag tag-jun">军</span>
+        <span class="title">菲美日"肩并肩"联合军演启动，日本首次正式参与</span>
+        <span class="time">4月20日</span>
+        <span class="arrow">▼</span>
+      </div>
+      <div class="news-body">
+        <p>4月20日，菲律宾、美国和日本正式启动年度"肩并肩"联合军事演习。本届演习规模为近年来最大，日本一支规模可观的部队首次正式加入，引发地区高度关注。菲律宾"慰安妇"权益保护组织"祖母联盟"发表声明，呼吁终止菲美军事同盟，谴责演习将菲律宾人民"推向战争边缘"。与此同时，菲律宾国内反战声音持续扩大，多个民间团体在马尼拉举行抗议集会。</p>
+        <div class="source">来源：央视新闻、菲律宾媒体</div>
+      </div>
+    </div>
+
+    <!-- 军事2 -->
+    <div class="news-item" onclick="toggle(this)">
+      <div class="news-header">
+        <span class="tag tag-jun">军</span>
+        <span class="title">中国国防部三语海报"喊话"，释放三大强硬信号</span>
+        <span class="time">4月20日</span>
+        <span class="arrow">▼</span>
+      </div>
+      <div class="news-body">
+        <p>4月20日，中国国防部例行新闻发布会释放重磅信号。官方新媒体平台"中国军号"首次以中、日、英三语同步发布系列海报，向全球直接喊话。三张海报分别揭露军国主义复辟风险、展示中国军队"随时能战"的硬核实力，并明确阐述国家核心利益立场。国防部发言人表示，面对复杂国际局势，中国军队不再含蓄，将坚决维护国家主权和领土完整。这是中国国防部近年来最强硬的公开表态之一。</p>
+        <div class="source">来源：国防部发布、环球时报</div>
+      </div>
+    </div>
+
+    <!-- 外交1 -->
+    <div class="news-item" onclick="toggle(this)">
+      <div class="news-header">
+        <span class="tag tag-wai">外</span>
+        <span class="title">中国向《不扩散核武器条约》提交履约国家报告</span>
+        <span class="time">4月20日</span>
+        <span class="arrow">▼</span>
+      </div>
+      <div class="news-body">
+        <p>4月20日，中国外交部发言人郭嘉昆主持例行记者会宣布，4月17日，中国政府已向《不扩散核武器条约》第十一次审议大会提交履约国家报告，这是中国采取的最新自愿透明举措。报告重申中国坚持自卫防御核战略、恪守不首先使用核武器政策，中方表示愿与各方共同努力，维护NPT的权威性和有效性，循序推进核裁军进程。</p>
+        <div class="source">来源：外交部官网、新华社</div>
+      </div>
+    </div>
+
+    <!-- 外交2 -->
+    <div class="news-item" onclick="toggle(this)">
+      <div class="news-header">
+        <span class="tag tag-wai">外</span>
+        <span class="title">巴基斯坦穿梭外交持续推进，美伊谈判"大门未关闭"</span>
+        <span class="time">4月20日</span>
+        <span class="arrow">▼</span>
+      </div>
+      <div class="news-body">
+        <p>巴基斯坦继续扮演美伊谈判"中间人"角色。4月16日，巴基斯坦总理夏巴兹与陆军参谋长穆尼尔分两路展开穿梭外交，穆尼尔随后与伊朗议会议长卡利巴夫在德黑兰举行会谈。尽管美伊谈判在4月12日无果而终，但伊朗外交部4月20日表示，鉴于美国前后矛盾的举动，伊方尚未最终决定是否参加新一轮谈判，但美方谈判之门"尚未关闭"。</p>
+        <div class="source">来源：环球网、光明日报</div>
+      </div>
+    </div>
+
+    <!-- 社会1 -->
+    <div class="news-item" onclick="toggle(this)">
+      <div class="news-header">
+        <span class="tag tag-she">社</span>
+        <span class="title">"国际中文日"暨全球中文诗友会在京启动</span>
+        <span class="time">4月20日</span>
+        <span class="arrow">▼</span>
+      </div>
+      <div class="news-body">
+        <p>4月20日，2026年"国际中文日"暨"诗约四海"全球中文诗友会启动仪式在北京邮电大学举行，700余名中外嘉宾齐聚一堂。本次活动以"诗歌连通世界"为主题，来自塞尔维亚、塞浦路斯等多国的青年分享了学习中文与中华诗词的故事，塞浦路斯驻华大使亲临现场并以"和而不同"为引致辞。多国驻华使节、国际文化交流代表共同参与，成为文明互鉴的生动实践。</p>
+        <div class="source">来源：中国新闻网、光明网</div>
+      </div>
+    </div>
+
+    <!-- 社会2 -->
+    <div class="news-item" onclick="toggle(this)">
+      <div class="news-header">
+        <span class="tag tag-she">社</span>
+        <span class="title">日本地震震级修正为7.7级，震源深度仅20公里</span>
+        <span class="time">4月20日</span>
+        <span class="arrow">▼</span>
+      </div>
+      <div class="news-body">
+        <p>日本气象厅4月20日发布修正数据，将此前测定的地震震级修正为7.7级，震源深度修正为20公里。地震发生后，日本多地发布海啸预警，相关地区居民被紧急疏散至高地。截至目前，暂无重大人员伤亡报告，但部分地区基础设施受损，地震学家正在持续监测余震活动及海啸风险。</p>
+        <div class="source">来源：网易新闻、央视新闻</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="footer">
+    国际要闻简报 · 每日早7点自动更新<br>
+    <a href="https://anath.pages.dev/briefing.html">在线阅读 · 多日期切换入口 →</a>
+  </div>
+</div>
+
+<script>
+function toggle(el) {
+  el.classList.toggle('open');
+}
+</script>
+</body>
+</html>

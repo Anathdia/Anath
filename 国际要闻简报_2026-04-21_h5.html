@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>国际要闻简报 2026-04-21</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --orange: #FF6B35;
+  --bg: #f5f6fa;
+  --card: #ffffff;
+  --border: #e8e9f0;
+  --text: #1a1a2e;
+  --sub: #8890a8;
+  --di: #7c3aed; --di-bg: #f3e8ff;
+  --jing: #059669; --jing-bg: #d1fae5;
+  --ji: #2563eb; --ji-bg: #dbeafe;
+  --jun: #4b5563; --jun-bg: #f3f4f6;
+  --wai: #dc2626; --wai-bg: #fee2e2;
+  --she: #9333ea; --she-bg: #f3e8ff;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+body { font-family: 'Noto Sans SC', 'PingFang SC', sans-serif; background: var(--bg); color: var(--text); line-height: 1.65; padding-bottom: 60px; }
+.header { background: linear-gradient(135deg, #FF6B35, #FF4500); color: #fff; padding: 22px 18px 20px; }
+.header .top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; }
+.header .date { font-size: 12px; opacity: 0.85; }
+.header h1 { font-size: 18px; font-weight: 700; margin-bottom: 16px; }
+
+/* 分类筛选 */
+.filter { display: flex; gap: 8px; padding: 12px 16px; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+.filter::-webkit-scrollbar { display: none; }
+.filter .fbtn { font-size: 12px; font-weight: 600; padding: 5px 13px; border-radius: 20px; border: 1.5px solid var(--border); background: var(--card); color: var(--sub); white-space: nowrap; transition: all 0.15s; }
+.filter .fbtn.active { background: var(--orange); color: #fff; border-color: var(--orange); }
+
+/* 头条 */
+.topcard { margin: 14px 14px 0; background: linear-gradient(135deg, #FF6B35, #FF4500); border-radius: 16px; padding: 20px 18px; color: #fff; box-shadow: 0 6px 24px rgba(255,107,53,0.25); }
+.topcard .label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; opacity: 0.8; margin-bottom: 8px; }
+.topcard h2 { font-size: 17px; font-weight: 700; line-height: 1.45; margin-bottom: 12px; }
+.topcard .detail { font-size: 13px; opacity: 0.9; line-height: 1.75; }
+.topcard .risk { margin-top: 14px; background: rgba(0,0,0,0.18); border-radius: 10px; padding: 11px 13px; font-size: 12px; display: flex; align-items: flex-start; gap: 7px; line-height: 1.6; }
+.topcard .risk-icon { font-size: 15px; flex-shrink: 0; }
+
+/* 列表 */
+.content { padding: 0 14px; }
+.news-item { background: var(--card); border-radius: 14px; border: 1px solid var(--border); margin-top: 12px; overflow: hidden; }
+.news-header { padding: 14px 15px; display: flex; align-items: center; gap: 9px; }
+.news-header .tag { font-size: 10px; font-weight: 700; padding: 2px 9px; border-radius: 20px; flex-shrink: 0; }
+.news-header .title { font-size: 14px; font-weight: 500; flex: 1; line-height: 1.5; }
+.news-header .time { font-size: 10px; color: var(--sub); flex-shrink: 0; }
+.news-header .arrow { font-size: 13px; color: var(--sub); flex-shrink: 0; transition: transform 0.2s; margin-left: 5px; }
+.news-item.open .arrow { transform: rotate(180deg); }
+.news-body { display: none; padding: 0 15px 14px; }
+.news-item.open .news-body { display: block; }
+.news-body p { font-size: 13px; color: #5a607a; line-height: 1.85; border-top: 1px solid var(--border); padding-top: 12px; }
+.news-body .source { font-size: 10px; color: #b0b5c8; margin-top: 8px; }
+
+.footer { text-align: center; padding: 24px 14px 8px; font-size: 11px; color: var(--sub); }
+.footer a { color: var(--orange); text-decoration: none; }
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="top">
+    <span class="date">2026年4月21日 · 周二</span>
+  </div>
+  <h1>🌐 国际要闻简报</h1>
+  <div class="filter">
+    <button class="fbtn active" data-filter="all">全部</button>
+    <button class="fbtn" data-filter="di">🌍 地缘</button>
+    <button class="fbtn" data-filter="jing">💹 经济</button>
+    <button class="fbtn" data-filter="ji">💻 科技</button>
+    <button class="fbtn" data-filter="jun">⚔️ 军事</button>
+    <button class="fbtn" data-filter="wai">🤝 外交</button>
+    <button class="fbtn" data-filter="she">🎭 社文</button>
+  </div>
+</div>
+
+<div class="content">
+  <!-- 头条（不过滤） -->
+  <div class="topcard">
+    <div class="label">⚡ 今日头条</div>
+    <h2>美伊冲突激化：霍尔木兹海峡再次封锁，局势骤然升温</h2>
+    <div class="detail">4月21日凌晨，伊朗货船无视美军警告强行通过霍尔木兹海峡，伊朗革命卫队随即宣布重新封锁。美军19日在阿曼湾向伊朗货船开火，伊方无人机紧急还击。伊朗议会官员同日表示，伊方已决定继续谈判，但"并非不惜一切代价"。</div>
+    <div class="risk">
+      <span class="risk-icon">⚠️</span>
+      <div><strong>风险提示：</strong>霍尔木兹海峡承载全球约20%石油运输，持续封锁将严重冲击国际能源供应链，中东局势急剧升温，外交窗口正在收窄。</div>
+    </div>
+  </div>
+
+  <!-- 新闻列表 -->
+  <div id="news-list">
+
+    <div class="news-item" data-cat="di">
+      <div class="news-header" onclick="toggle(this)">
+        <span class="tag" style="background:var(--di-bg);color:var(--di)">地</span>
+        <span class="title">美伊"拉锯"持续升级：海峡通行反复无常</span>
+        <span class="time">4月20日</span>
+        <span class="arrow">▼</span>
+      </div>
+      <div class="news-body">
+        <p>4月19日，伊朗先是宣布重开霍尔木兹海峡，市场情绪短暂缓和；但随后美国宣布封锁海峡，美军向伊朗商船开火，伊朗革命卫队无人机随即升空还击，局势再度急转直下。美伊双方均声称对方率先挑衅，真相尚不明朗。分析指出，美伊正在通过层出不穷的封锁措施争夺海峡控制权，航运业面临极大不确定性。</p>
+        <div class="source">来源：新华社、央视新闻</div>
+      </div>
+    </div>
+
+    <div class="news-item" data-cat="di">
+      <div class="news-header" onclick="toggle(this)">
+        <span class="tag" style="background:var(--di-bg);color:var(--di)">地</span>
+        <span class="title">IMF大幅下调中东经济增速，海湾产油国受冲击最重</span>
+        <span class="time">4月20日</span>
+        <span class="arrow">▼</span>
+      </div>
+      <div class="news-body">
+        <p>国际货币基金组织（IMF）4月20日发布中东与中亚地区经济展望，将2026年MENAP地区经济增速大幅下调2.3个百分点至1.4%，海湾产油国增长预期下修幅度最高达15个百分点，其中五个国家陷入经济收缩。霍尔木兹海峡封锁正从航油到粮价多个层面冲击全球经济，已接近"临界点"。</p>
+        <div class="source">来源：IMF报告、新浪财经</div>
+      </div>
+    </div>
+
+    <div class="news-item" data-cat="jing">
+      <div class="news-header" onclick="toggle(this)">
+        <span class="tag" style="background:var(--jing-bg);color:var(--jing)">经</span>
+        <span class="title">美国正式启动第一阶段关税退税，涉及数十亿美元</span>
+        <span class="time">4月20日</span>
+        <span class="arrow">▼</span>
+      </div>
+      <div class="news-body">
+        <p>4月20日起，美国海关与边境保护局正式启动第一阶段关税退税工作。这批关税源于2026年2月被最高法院裁定为无效的贸易措施，退税总额预计达数十亿美元。不过CBP设定了严格的申请条件，并非所有贸易商都能立刻获得退税资格，多国出口企业正密切关注后续操作细则。</p>
+        <div class="source">来源：财新网</div>
+      </div>
+    </div>
+
+    <div class="news-item" data-cat="ji">
+      <div class="news-header" onclick="toggle(this)">
+        <span class="tag" style="background:var(--ji-bg);color:var(--ji)">技</span>
+        <span class="title">OpenAI三位核心高管同日离职，Sora项目被关停</span>
+        <span class="time">4月18日</span>
+        <span class="arrow">▼</span>
+      </div>
+      <div class="news-body">
+        <p>4月18日，OpenAI首席产品官Kevin Weil、Sora项目负责人Bill Peebles及企业应用CTO Srinivas Narayanan三位核心高管同日宣布离职。OpenAI同日宣布关停Sora视频生成项目及科研工具Prism，全面转向企业业务。此举引发内部激烈争论，公司当前估值约8520亿美元，正处于IPO前关键筹备期。</p>
+        <div class="source">来源：36氪、网易科技</div>
+      </div>
+    </div>
+
+    <div class="news-item" data-cat="ji">
+      <div class="news-header" onclick="toggle(this)">
+        <span class="tag" style="background:var(--ji-bg);color:var(--ji)">技</span>
+        <span class="title">2026汉诺威工业博览会开幕，聚焦AI与机器人技术</span>
+        <span class="time">4月20日</span>
+        <span class="arrow">▼</span>
+      </div>
+      <div class="news-body">
+        <p>汉诺威工业博览会（HANNOVER MESSE 2026）于4月20日至24日在德国汉诺威举办，主题为"工业转型：赋权可持续增长"。展会汇聚来自98个国家的4500余家企业，AI与机器人技术成为最大亮点，中国企业携最新工业大模型、具身智能解决方案参展，同期举办多场工业AI论坛。</p>
+        <div class="source">来源：汉诺威工博会官网</div>
+      </div>
+    </div>
+
+    <div class="news-item" data-cat="jun">
+      <div class="news-header" onclick="toggle(this)">
+        <span class="tag" style="background:var(--jun-bg);color:var(--jun)">军</span>
+        <span class="title">菲美日"肩并肩"联合军演启动，日本首次正式参与</span>
+        <span class="time">4月20日</span>
+        <span class="arrow">▼</span>
+      </div>
+      <div class="news-body">
+        <p>4月20日，菲律宾、美国和日本正式启动年度"肩并肩"联合军事演习。本届演习规模为近年来最大，日本一支规模可观的部队首次正式加入，引发地区高度关注。菲律宾"祖母联盟"等民间组织发表声明，呼吁终止菲美军事同盟，谴责演习将菲律宾人民"推向战争边缘"，马尼拉多地爆发反战集会。</p>
+        <div class="source">来源：央视新闻</div>
+      </div>
+    </div>
+
+    <div class="news-item" data-cat="jun">
+      <div class="news-header" onclick="toggle(this)">
+        <span class="tag" style="background:var(--jun-bg);color:var(--jun)">军</span>
+        <span class="title">中国国防部三语海报"喊话"，释放三大强硬信号</span>
+        <span class="time">4月20日</span>
+        <span class="arrow">▼</span>
+      </div>
+      <div class="news-body">
+        <p>4月20日，中国国防部例行新闻发布会释放重磅信号。官方新媒体"中国军号"首次以中、日、英三语同步发布系列海报，内容涵盖揭露军国主义复辟风险、展示"随时能战"实力、阐明国家核心利益立场等三方面。国防部发言人表示，面对复杂国际局势，中国军队将坚决维护国家主权和领土完整。这是近年来最强硬的公开表态之一。</p>
+        <div class="source">来源：国防部发布</div>
+      </div>
+    </div>
+
+    <div class="news-item" data-cat="wai">
+      <div class="news-header" onclick="toggle(this)">
+        <span class="tag" style="background:var(--wai-bg);color:var(--wai)">外</span>
+        <span class="title">中国向《不扩散核武器条约》提交履约国家报告</span>
+        <span class="time">4月20日</span>
+        <span class="arrow">▼</span>
+      </div>
+      <div class="news-body">
+        <p>4月20日，外交部发言人郭嘉昆宣布，4月17日中国政府已向《不扩散核武器条约》第十一次审议大会提交履约国家报告，这是中国采取的最新自愿透明举措。报告重申中国坚持自卫防御核战略、恪守不首先使用核武器政策，中方愿与各方共同努力，维护NPT的权威性和有效性。</p>
+        <div class="source">来源：外交部官网</div>
+      </div>
+    </div>
+
+    <div class="news-item" data-cat="wai">
+      <div class="news-header" onclick="toggle(this)">
+        <span class="tag" style="background:var(--wai-bg);color:var(--wai)">外</span>
+        <span class="title">巴基斯坦穿梭外交持续推进，美伊谈判"大门未关闭"</span>
+        <span class="time">4月20日</span>
+        <span class="arrow">▼</span>
+      </div>
+      <div class="news-body">
+        <p>巴基斯坦继续扮演美伊谈判"中间人"角色，4月16日总理夏巴兹与陆军参谋长穆尼尔分两路展开穿梭外交，穆尼尔随后与伊朗议会议长卡利巴夫在德黑兰举行会谈。尽管4月12日谈判无果而终，伊朗外交部4月20日表示，美方谈判之门"尚未关闭"，伊方尚未最终决定是否参加新一轮谈判。</p>
+        <div class="source">来源：环球网</div>
+      </div>
+    </div>
+
+    <div class="news-item" data-cat="she">
+      <div class="news-header" onclick="toggle(this)">
+        <span class="tag" style="background:var(--she-bg);color:var(--she)">社</span>
+        <span class="title">"国际中文日"暨全球中文诗友会在京启动</span>
+        <span class="time">4月20日</span>
+        <span class="arrow">▼</span>
+      </div>
+      <div class="news-body">
+        <p>4月20日，2026年"国际中文日"暨"诗约四海"全球中文诗友会启动仪式在北京邮电大学举行，700余名中外嘉宾齐聚。多国驻华使节、国际文化交流代表共同参与，以"诗歌连通世界"为主题，塞浦路斯驻华大使以"和而不同"为引致辞，成为文明互鉴的生动实践。</p>
+        <div class="source">来源：中国新闻网</div>
+      </div>
+    </div>
+
+    <div class="news-item" data-cat="she">
+      <div class="news-header" onclick="toggle(this)">
+        <span class="tag" style="background:var(--she-bg);color:var(--she)">社</span>
+        <span class="title">日本地震震级修正为7.7级，多地发布海啸预警</span>
+        <span class="time">4月20日</span>
+        <span class="arrow">▼</span>
+      </div>
+      <div class="news-body">
+        <p>日本气象厅4月20日发布修正数据，将地震震级修正为7.7级，震源深度修正为20公里。地震发生后，日本多地发布海啸预警，居民被紧急疏散至高地。截至目前暂无重大人员伤亡报告，但部分地区基础设施受损，地震学家正在持续监测余震及海啸风险。</p>
+        <div class="source">来源：央视新闻</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="footer">
+  国际要闻简报 · 每日早7点自动更新<br>
+  <a href="https://anath.pages.dev/briefing.html">在线阅读 · 多日期切换 →</a>
+</div>
+
+<script>
+// 展开/收起
+function toggle(el) {
+  var item = el.closest('.news-item');
+  item.classList.toggle('open');
+}
+
+// 分类筛选
+var btns = document.querySelectorAll('.fbtn');
+btns.forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    var filter = this.dataset.filter;
+    btns.forEach(function(b) { b.classList.remove('active'); });
+    this.classList.add('active');
+    var items = document.querySelectorAll('.news-item[data-cat]');
+    items.forEach(function(item) {
+      if (filter === 'all' || item.dataset.cat === filter) {
+        item.style.display = '';
+      } else {
+        item.style.display = 'none';
+        item.classList.remove('open');
+      }
+    });
+  });
+});
+</script>
+</body>
+</html>
