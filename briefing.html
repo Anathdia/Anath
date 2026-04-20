@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>国际要闻简报</title>
+<style>
+  :root {
+    --bg: #f5f6fa;
+    --card: #ffffff;
+    --text: #1a1d2e;
+    --text-sub: #6b7280;
+    --text-detail: #4a5063;
+    --border: #e5e7eb;
+    --accent: #f97316;
+    --accent-light: #fff7ed;
+    --radius: 16px;
+    --radius-sm: 10px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html { font-size: 16px; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    min-height: 100vh;
+    padding-bottom: env(safe-area-inset-bottom);
+    overflow-x: hidden;
+  }
+
+  /* === Header === */
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(255,255,255,0.88);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border-bottom: 0.5px solid rgba(0,0,0,0.06);
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .header-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .header-logo {
+    width: 36px; height: 36px;
+    background: linear-gradient(135deg, #f97316, #ef4444);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; color: #fff;
+    box-shadow: 0 2px 8px rgba(249,115,22,0.3);
+    flex-shrink: 0;
+  }
+  .header-title { font-size: 17px; font-weight: 700; letter-spacing: -0.01em; }
+
+  /* === Date Selector === */
+  .date-selector {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: #f3f4f6;
+    border-radius: 22px;
+    padding: 3px;
+  }
+  .date-arrow {
+    width: 28px; height: 28px;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 50%;
+    border: none;
+    background: transparent;
+    color: var(--text-sub);
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.2s;
+    flex-shrink: 0;
+  }
+  .date-arrow:active { background: #e5e7eb; }
+  .date-arrow.disabled { opacity: 0.3; pointer-events: none; }
+  .date-label {
+    font-size: 12px;
+    color: var(--text);
+    padding: 4px 10px;
+    font-weight: 600;
+    min-width: 72px;
+    text-align: center;
+    user-select: none;
+    white-space: nowrap;
+  }
+
+  /* === Content Frame === */
+  .content-wrapper {
+    position: relative;
+    width: 100%;
+    min-height: calc(100vh - 60px);
+  }
+  .content-frame {
+    width: 100%;
+    border: none;
+    display: block;
+    min-height: calc(100vh - 60px);
+    background: var(--bg);
+  }
+
+  /* === Loading === */
+  .loading-overlay {
+    position: fixed;
+    inset: 0;
+    background: var(--bg);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 200;
+    transition: opacity 0.3s;
+  }
+  .loading-overlay.hidden { opacity: 0; pointer-events: none; }
+  .loading-spinner {
+    width: 36px; height: 36px;
+    border: 3px solid #e5e7eb;
+    border-top-color: var(--accent);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin-bottom: 16px;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .loading-text { font-size: 14px; color: var(--text-sub); }
+
+  /* === No Content === */
+  .no-content {
+    text-align: center;
+    padding: 60px 20px;
+  }
+  .no-content-icon { font-size: 48px; margin-bottom: 16px; }
+  .no-content h3 { font-size: 16px; color: var(--text); margin-bottom: 8px; }
+  .no-content p { font-size: 14px; color: var(--text-sub); }
+
+  /* === Swipe hint === */
+  @media (min-width: 500px) {
+    .header { max-width: 420px; margin: 0 auto; left: 50%; transform: translateX(-50%); }
+  }
+</style>
+</head>
+<body>
+
+<div class="loading-overlay" id="loadingOverlay">
+  <div class="loading-spinner"></div>
+  <div class="loading-text">加载中...</div>
+</div>
+
+<div class="header">
+  <div class="header-left">
+    <div class="header-logo">N</div>
+    <span class="header-title">国际要闻简报</span>
+  </div>
+  <div class="date-selector">
+    <button class="date-arrow" id="prevBtn" onclick="switchDate(-1)">&#9664;</button>
+    <span class="date-label" id="dateLabel">--</span>
+    <button class="date-arrow" id="nextBtn" onclick="switchDate(1)">&#9654;</button>
+  </div>
+</div>
+
+<div class="content-wrapper" id="contentWrapper">
+  <!-- iframe or no-content will be injected here -->
+</div>
+
+<script>
+(function() {
+  'use strict';
+
+  const DAYS_TO_CHECK = 4; // today + 3 previous days
+  let availableDates = [];
+  let currentIndex = 0;
+  let currentContent = null;
+  let touchStartX = 0;
+  let touchStartY = 0;
+
+  const dayNames = ['周日','周一','周二','周三','周四','周五','周六'];
+
+  function formatDate(date) {
+    const m = String(date.getMonth() + 1).padStart(2, '0');
+    const d = String(date.getDate()).padStart(2, '0');
+    return date.getFullYear() + '-' + m + '-' + d;
+  }
+
+  function formatDateCN(date) {
+    return (date.getMonth() + 1) + '.' + date.getDate() + ' ' + dayNames[date.getDay()];
+  }
+
+  function getH5Url(dateStr) {
+    return '国际要闻简报_' + dateStr + '_h5.html';
+  }
+
+  // Check which dates have content
+  async function discoverDates() {
+    const today = new Date();
+    // Get today's date in the configured timezone feel (we use browser local)
+    const dates = [];
+    for (let i = 0; i < DAYS_TO_CHECK; i++) {
+      const d = new Date(today);
+      d.setDate(d.getDate() - i);
+      dates.push(formatDate(d));
+    }
+    // Fetch all in parallel to discover which exist
+    const results = await Promise.allSettled(
+      dates.map(async ds => {
+        try {
+          const resp = await fetch(getH5Url(ds), { method: 'HEAD' });
+          if (resp.ok) return ds;
+        } catch(e) {}
+        return null;
+      })
+    );
+    return results
+      .map(r => r.status === 'fulfilled' ? r.value : null)
+      .filter(Boolean);
+  }
+
+  function showLoading(show) {
+    document.getElementById('loadingOverlay').classList.toggle('hidden', !show);
+  }
+
+  function updateDateLabel() {
+    const label = document.getElementById('dateLabel');
+    const dateStr = availableDates[currentIndex];
+    const parts = dateStr.split('-');
+    const d = new Date(parseInt(parts[0]), parseInt(parts[1]) - 1, parseInt(parts[2]));
+    label.textContent = formatDateCN(d);
+
+    document.getElementById('prevBtn').classList.toggle('disabled', currentIndex >= availableDates.length - 1);
+    document.getElementById('nextBtn').classList.toggle('disabled', currentIndex <= 0);
+  }
+
+  async function loadDateContent(dateStr) {
+    const wrapper = document.getElementById('contentWrapper');
+    showLoading(true);
+
+    try {
+      const resp = await fetch(getH5Url(dateStr));
+      if (!resp.ok) throw new Error('Not found');
+      let html = await resp.text();
+
+      // Strip the full HTML page to just the content part (everything inside .content)
+      // We need to extract styles + content
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(html, 'text/html');
+
+      // Extract all styles
+      const styles = doc.querySelectorAll('style');
+      let styleText = '';
+      styles.forEach(s => styleText += s.textContent + '\n');
+
+      // Extract the content div
+      const contentEl = doc.querySelector('.content');
+      if (!contentEl) throw new Error('No .content found');
+
+      // Build a clean HTML fragment
+      const fragmentHTML = '<style>' + styleText + '</style>\n' + contentEl.outerHTML +
+        '<script>' +
+        (doc.querySelector('script') ? doc.querySelector('script').textContent : '') +
+        '<\/script>';
+
+      wrapper.innerHTML = '<div class="content-frame-wrapper" style="background:var(--bg);min-height:calc(100vh - 60px);">' + fragmentHTML + '</div>';
+      showLoading(false);
+    } catch(e) {
+      wrapper.innerHTML = '<div class="no-content">' +
+        '<div class="no-content-icon">📭</div>' +
+        '<h3>暂无内容</h3>' +
+        '<p>' + dateStr + ' 的简报尚未生成</p></div>';
+      showLoading(false);
+    }
+  }
+
+  window.switchDate = function(delta) {
+    const newIndex = currentIndex + delta;
+    if (newIndex < 0 || newIndex >= availableDates.length) return;
+    currentIndex = newIndex;
+    updateDateLabel();
+    loadDateContent(availableDates[currentIndex]);
+  };
+
+  // Swipe support
+  document.addEventListener('touchstart', function(e) {
+    touchStartX = e.touches[0].clientX;
+    touchStartY = e.touches[0].clientY;
+  }, { passive: true });
+
+  document.addEventListener('touchend', function(e) {
+    const dx = e.changedTouches[0].clientX - touchStartX;
+    const dy = e.changedTouches[0].clientY - touchStartY;
+    // Only horizontal swipe (not vertical scroll)
+    if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.5) {
+      if (dx < 0) switchDate(-1); // swipe left -> newer (but we're at 0 for newest)
+      else switchDate(1); // swipe right -> older
+    }
+  }, { passive: true });
+
+  // Keyboard support for desktop
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'ArrowLeft') switchDate(1);
+    if (e.key === 'ArrowRight') switchDate(-1);
+  });
+
+  // Init
+  async function init() {
+    availableDates = await discoverDates();
+    if (availableDates.length === 0) {
+      document.getElementById('loadingOverlay').innerHTML =
+        '<div class="no-content-icon">📭</div><h3 style="color:#1a1d2e;font-size:16px;margin-top:16px">暂无简报</h3><p style="color:#6b7280;font-size:14px">今天的内容还未生成</p>';
+      return;
+    }
+    currentIndex = 0; // newest first
+    updateDateLabel();
+    await loadDateContent(availableDates[0]);
+  }
+
+  init();
+})();
+</script>
+</body>
+</html>
