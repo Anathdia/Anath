@@ -1,0 +1,13 @@
+node_modules/
+.workbuddy/
+.codebuddy/
+package.json
+package-lock.json
+*.js
+*.ts
+*.py
+*.pptx
+*.png
+*.xls
+*.xlsx
+*.csv

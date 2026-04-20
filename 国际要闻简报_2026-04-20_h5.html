@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>国际要闻简报</title>
+<style>
+  :root {
+    --bg: #f5f6fa;
+    --card: #ffffff;
+    --text: #1a1d2e;
+    --text-sub: #6b7280;
+    --text-detail: #4a5063;
+    --border: #e5e7eb;
+    --accent: #f97316;
+    --accent-light: #fff7ed;
+    --radius: 16px;
+    --radius-sm: 10px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html { font-size: 16px; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    min-height: 100vh;
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  /* === Header === */
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(255,255,255,0.88);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border-bottom: 0.5px solid rgba(0,0,0,0.06);
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .header-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .header-logo {
+    width: 36px; height: 36px;
+    background: linear-gradient(135deg, #f97316, #ef4444);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; color: #fff;
+    box-shadow: 0 2px 8px rgba(249,115,22,0.3);
+  }
+  .header-title { font-size: 17px; font-weight: 700; letter-spacing: -0.01em; }
+  .header-date {
+    font-size: 12px;
+    color: var(--text-sub);
+    background: #f3f4f6;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-weight: 500;
+  }
+
+  /* === Content === */
+  .content { padding: 12px 16px 32px; }
+
+  /* === Headline Card === */
+  .headline {
+    background: linear-gradient(160deg, #1e293b 0%, #0f172a 100%);
+    border-radius: var(--radius);
+    padding: 0;
+    margin-bottom: 20px;
+    overflow: hidden;
+    box-shadow: 0 4px 24px rgba(15,23,42,0.15);
+  }
+  .headline-accent {
+    height: 3px;
+    background: linear-gradient(90deg, #f97316, #f43f5e, #8b5cf6);
+  }
+  .headline-body { padding: 20px 20px 22px; }
+  .headline-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 11px;
+    font-weight: 600;
+    color: #fb923c;
+    background: rgba(251,146,60,0.12);
+    padding: 4px 10px;
+    border-radius: 6px;
+    margin-bottom: 14px;
+    letter-spacing: 0.02em;
+  }
+  .headline h2 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #f8fafc;
+    line-height: 1.55;
+    margin-bottom: 12px;
+    letter-spacing: -0.01em;
+  }
+  .headline p {
+    font-size: 14px;
+    color: rgba(255,255,255,0.7);
+    line-height: 1.75;
+  }
+  .headline-warning {
+    margin-top: 16px;
+    background: rgba(239,68,68,0.1);
+    border: 1px solid rgba(239,68,68,0.2);
+    border-radius: 10px;
+    padding: 12px 14px;
+    font-size: 13px;
+    color: #fca5a5;
+    line-height: 1.6;
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  .headline-warning .warn-icon { flex-shrink: 0; font-size: 15px; margin-top: 1px; }
+
+  /* === Filter Bar === */
+  .filter-bar {
+    display: flex;
+    gap: 8px;
+    padding: 0 0 14px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .filter-bar::-webkit-scrollbar { display: none; }
+  .filter-chip {
+    flex-shrink: 0;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 500;
+    background: var(--card);
+    color: var(--text-sub);
+    border: 1px solid var(--border);
+    cursor: pointer;
+    transition: all 0.2s;
+    user-select: none;
+  }
+  .filter-chip.active {
+    background: var(--text);
+    color: #fff;
+    border-color: var(--text);
+  }
+  .filter-chip .chip-dot {
+    display: inline-block;
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    margin-right: 5px;
+    vertical-align: middle;
+  }
+
+  /* === News List === */
+  .news-list { display: flex; flex-direction: column; gap: 10px; }
+
+  .news-item {
+    background: var(--card);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    border: 1px solid var(--border);
+    transition: border-color 0.25s, box-shadow 0.25s;
+  }
+  .news-item:active { transform: scale(0.985); }
+  .news-item.open {
+    border-color: #d1d5db;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  }
+
+  .news-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 16px;
+    cursor: pointer;
+    user-select: none;
+  }
+  .news-item.open .news-header { background: #fafbfc; }
+
+  .news-tag {
+    flex-shrink: 0;
+    width: 34px; height: 34px;
+    border-radius: 9px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 700; color: #fff;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  }
+  .tag-geo { background: linear-gradient(135deg, #6366f1, #8b5cf6); }
+  .tag-econ { background: linear-gradient(135deg, #10b981, #14b8a6); }
+  .tag-tech { background: linear-gradient(135deg, #3b82f6, #6366f1); }
+  .tag-dip { background: linear-gradient(135deg, #ef4444, #f43f5e); }
+  .tag-mil { background: linear-gradient(135deg, #64748b, #475569); }
+  .tag-sci { background: linear-gradient(135deg, #a855f7, #c084fc); }
+
+  .news-info { flex: 1; min-width: 0; }
+  .news-info h3 {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text);
+    line-height: 1.5;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .news-arrow {
+    flex-shrink: 0;
+    width: 28px; height: 28px;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 50%;
+    background: #f3f4f6;
+    transition: transform 0.3s cubic-bezier(0.4,0,0.2,1), background 0.2s;
+  }
+  .news-arrow svg { width: 14px; height: 14px; color: #9ca3af; transition: color 0.2s; }
+  .news-item.open .news-arrow {
+    transform: rotate(90deg);
+    background: #e5e7eb;
+  }
+  .news-item.open .news-arrow svg { color: #4b5563; }
+
+  /* === Detail Panel === */
+  .news-detail {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .news-item.open .news-detail { max-height: 600px; }
+  .news-detail-inner {
+    padding: 2px 16px 16px 62px;
+    font-size: 14px;
+    color: var(--text-detail);
+    line-height: 1.8;
+    border-top: 1px solid #f3f4f6;
+    padding-top: 12px;
+    margin-left: 0;
+  }
+  @media (min-width: 400px) {
+    .news-detail-inner { padding-left: 62px; }
+  }
+
+  /* === Stats Bar === */
+  .stats-bar {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    padding: 16px 0 8px;
+    margin-bottom: 6px;
+  }
+  .stat-item { text-align: center; }
+  .stat-num {
+    font-size: 20px;
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--accent), #f43f5e);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .stat-label { font-size: 11px; color: var(--text-sub); margin-top: 2px; }
+
+  /* === Footer === */
+  .footer {
+    text-align: center;
+    font-size: 12px;
+    color: #9ca3af;
+    padding: 24px 0 8px;
+    line-height: 1.8;
+  }
+  .footer a { color: #6b7280; text-decoration: none; }
+
+  /* === Animations === */
+  @keyframes fadeSlideUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .news-item {
+    animation: fadeSlideUp 0.4s ease both;
+  }
+  .news-item:nth-child(1) { animation-delay: 0.03s; }
+  .news-item:nth-child(2) { animation-delay: 0.06s; }
+  .news-item:nth-child(3) { animation-delay: 0.09s; }
+  .news-item:nth-child(4) { animation-delay: 0.12s; }
+  .news-item:nth-child(5) { animation-delay: 0.15s; }
+  .news-item:nth-child(6) { animation-delay: 0.18s; }
+  .news-item:nth-child(7) { animation-delay: 0.21s; }
+  .news-item:nth-child(8) { animation-delay: 0.24s; }
+  .news-item:nth-child(9) { animation-delay: 0.27s; }
+  .news-item:nth-child(10) { animation-delay: 0.30s; }
+  .news-item:nth-child(11) { animation-delay: 0.33s; }
+  .news-item:nth-child(12) { animation-delay: 0.36s; }
+
+  /* === Desktop hint === */
+  @media (min-width: 500px) {
+    .content { max-width: 420px; margin: 0 auto; }
+    .header { max-width: 420px; margin: 0 auto; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-left">
+    <div class="header-logo">N</div>
+    <span class="header-title">国际要闻简报</span>
+  </div>
+  <span class="header-date">4.20 周一</span>
+</div>
+
+<div class="content">
+
+  <!-- Stats -->
+  <div class="stats-bar">
+    <div class="stat-item">
+      <div class="stat-num">12</div>
+      <div class="stat-label">条新闻</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">6</div>
+      <div class="stat-label">个领域</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">24h</div>
+      <div class="stat-label">覆盖时效</div>
+    </div>
+  </div>
+
+  <!-- Headline -->
+  <div class="headline">
+    <div class="headline-accent"></div>
+    <div class="headline-body">
+      <div class="headline-badge">HEADLINE</div>
+      <h2>霍尔木兹海峡"开了又关"，美伊和谈再度陷入僵局</h2>
+      <p>伊朗17日宣布有条件开放霍尔木兹海峡后，不到24小时因美国继续海上封锁而态度急转，宣布恢复严格管控。19日，两艘试图穿越海峡的印度商船遭伊朗革命卫队逼退，期间发生开火。特朗普同日宣布美方代表团将于20日赴伊斯兰堡与伊朗举行第二轮谈判，但伊朗方面明确表示"尚未决定"是否派团出席，并坚持"只要有海上封锁就没有谈判"的核心立场。国际油价单日飙升逾7%。</p>
+      <div class="headline-warning">
+        <span class="warn-icon">&#x26A0;&#xFE0F;</span>
+        <span>美伊冲突已持续50天，霍尔木兹海峡局势反复无常。若谈判破裂，中东战火可能再度升级，全球能源供应链面临严重冲击。</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Filter -->
+  <div class="filter-bar">
+    <div class="filter-chip active" onclick="filterNews('all', this)">全部</div>
+    <div class="filter-chip" onclick="filterNews('mil', this)"><span class="chip-dot" style="background:#64748b"></span>军事 3</div>
+    <div class="filter-chip" onclick="filterNews('geo', this)"><span class="chip-dot" style="background:#6366f1"></span>地缘 3</div>
+    <div class="filter-chip" onclick="filterNews('tech', this)"><span class="chip-dot" style="background:#3b82f6"></span>科技 3</div>
+    <div class="filter-chip" onclick="filterNews('dip', this)"><span class="chip-dot" style="background:#ef4444"></span>外交 1</div>
+    <div class="filter-chip" onclick="filterNews('econ', this)"><span class="chip-dot" style="background:#10b981"></span>经济 1</div>
+    <div class="filter-chip" onclick="filterNews('sci', this)"><span class="chip-dot" style="background:#a855f7"></span>社会 1</div>
+  </div>
+
+  <!-- News List -->
+  <div class="news-list" id="newsList">
+
+    <div class="news-item" data-cat="mil">
+      <div class="news-header" onclick="toggleItem(this.parentElement)">
+        <div class="news-tag tag-mil">军</div>
+        <div class="news-info"><h3>朝鲜今年第七次发射弹道导弹，疑为潜射导弹测试</h3></div>
+        <div class="news-arrow"><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M7.3 4.3a1 1 0 011.4 0L13 8.6a1 1 0 010 1.4l-4.3 4.3a1 1 0 01-1.4-1.4L10.6 10 7.3 6.7a1 1 0 010-1.4z"/></svg></div>
+      </div>
+      <div class="news-detail"><div class="news-detail-inner">朝鲜19日清晨6时10分从咸镜南道新浦一带向日本海发射数枚短程弹道导弹，飞行约140公里后落入公海。鉴于新浦设有潜艇基地，韩军方推测此次发射可能为潜射弹道导弹（SLBM）测试，若属实将成为朝鲜今年首次进行潜射导弹试验。韩国总统府紧急召开安全会议，美日韩三国正密切协调应对。</div></div>
+    </div>
+
+    <div class="news-item" data-cat="mil">
+      <div class="news-header" onclick="toggleItem(this.parentElement)">
+        <div class="news-tag tag-mil">军</div>
+        <div class="news-info"><h3>乌克兰称在克里米亚海域击中3艘俄军舰</h3></div>
+        <div class="news-arrow"><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M7.3 4.3a1 1 0 011.4 0L13 8.6a1 1 0 010 1.4l-4.3 4.3a1 1 0 01-1.4-1.4L10.6 10 7.3 6.7a1 1 0 010-1.4z"/></svg></div>
+      </div>
+      <div class="news-detail"><div class="news-detail-inner">乌克兰军方19日通报，在克里米亚附近海域成功击中3艘俄罗斯军舰。与此同时，俄军14至15日对乌克兰全境发动大规模联合空袭，发射3枚弹道导弹和约324架攻击无人机，造成严重破坏。4月以来，俄乌冲突持续升温，联合国数据显示本月至少已有91名乌克兰平民死亡、数百人受伤。</div></div>
+    </div>
+
+    <div class="news-item" data-cat="dip">
+      <div class="news-header" onclick="toggleItem(this.parentElement)">
+        <div class="news-tag tag-dip">外</div>
+        <div class="news-info"><h3>美伊第二轮谈判前景不明朗，伊朗坚持"先解封再谈判"</h3></div>
+        <div class="news-arrow"><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M7.3 4.3a1 1 0 011.4 0L13 8.6a1 1 0 010 1.4l-4.3 4.3a1 1 0 01-1.4-1.4L10.6 10 7.3 6.7a1 1 0 010-1.4z"/></svg></div>
+      </div>
+      <div class="news-detail"><div class="news-detail-inner">特朗普19日宣布美方代表团将于20日晚抵达伊斯兰堡与伊朗谈判，称方案"公道合理"，同时威胁若伊朗拒绝将轰炸其发电厂和桥梁。然而伊朗谈判代表团团长、议长卡利巴夫表示双方距离最终协议仍有很长的路，伊朗强调"只要有海上封锁，就没有谈判"，并拟出台霍尔木兹海峡管理法，禁止以色列关联船只通行。伊朗副外长同日明确表示不会向美国输送浓缩铀。</div></div>
+    </div>
+
+    <div class="news-item" data-cat="geo">
+      <div class="news-header" onclick="toggleItem(this.parentElement)">
+        <div class="news-tag tag-geo">地</div>
+        <div class="news-info"><h3>约3.6万日本民众集会抗议高市政权推动修宪</h3></div>
+        <div class="news-arrow"><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M7.3 4.3a1 1 0 011.4 0L13 8.6a1 1 0 010 1.4l-4.3 4.3a1 1 0 01-1.4-1.4L10.6 10 7.3 6.7a1 1 0 010-1.4z"/></svg></div>
+      </div>
+      <div class="news-detail"><div class="news-detail-inner">当地时间4月19日下午，约3.6万日本民众在东京国会议事堂前举行集会，抗议高市早苗政权推动部署长射程导弹、企图解禁杀伤性武器出口以及修改和平宪法第九条。参加者表示，好不容易制定的和平宪法和"武器出口三原则"正在被侵蚀，要求政府停止用国民税金将杀伤性武器出口到世界各地。</div></div>
+    </div>
+
+    <div class="news-item" data-cat="geo">
+      <div class="news-header" onclick="toggleItem(this.parentElement)">
+        <div class="news-tag tag-geo">地</div>
+        <div class="news-info"><h3>联合国妇女署：加沙超3.8万名妇女和女童在冲突中丧生</h3></div>
+        <div class="news-arrow"><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M7.3 4.3a1 1 0 011.4 0L13 8.6a1 1 0 010 1.4l-4.3 4.3a1 1 0 01-1.4-1.4L10.6 10 7.3 6.7a1 1 0 010-1.4z"/></svg></div>
+      </div>
+      <div class="news-detail"><div class="news-detail-inner">联合国妇女署17日发布数据称，自2023年10月至2025年12月，加沙地带有超过3.8万名妇女和女童在冲突中丧生。尽管停火协议已生效半年，当地女性仍面临极高的生存风险。妇女署呼吁各方遵守停火协议及国际法，提供大规模、畅通无阻的人道主义援助。</div></div>
+    </div>
+
+    <div class="news-item" data-cat="econ">
+      <div class="news-header" onclick="toggleItem(this.parentElement)">
+        <div class="news-tag tag-econ">经</div>
+        <div class="news-info"><h3>霍尔木兹海峡航运受阻，国际油价单日暴涨逾7%</h3></div>
+        <div class="news-arrow"><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M7.3 4.3a1 1 0 011.4 0L13 8.6a1 1 0 010 1.4l-4.3 4.3a1 1 0 01-1.4-1.4L10.6 10 7.3 6.7a1 1 0 010-1.4z"/></svg></div>
+      </div>
+      <div class="news-detail"><div class="news-detail-inner">随着美国袭击伊朗商船、伊朗向商船开火，"开了又关"的霍尔木兹海峡再度收紧，国际油价周一（20日）大幅走高，涨幅超7%。此前海峡短暂开放时油价曾暴跌逾10%，市场剧烈波动反映出投资者对中东能源供应链的高度敏感。国际航协警告，若局势持续恶化，欧洲可能因油料短缺出现"停飞潮"。</div></div>
+    </div>
+
+    <div class="news-item" data-cat="tech">
+      <div class="news-header" onclick="toggleItem(this.parentElement)">
+        <div class="news-tag tag-tech">技</div>
+        <div class="news-info"><h3>人形机器人半马"闪电"50分26秒夺冠，超越人类世界纪录</h3></div>
+        <div class="news-arrow"><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M7.3 4.3a1 1 0 011.4 0L13 8.6a1 1 0 010 1.4l-4.3 4.3a1 1 0 01-1.4-1.4L10.6 10 7.3 6.7a1 1 0 010-1.4z"/></svg></div>
+      </div>
+      <div class="news-detail"><div class="news-detail-inner">4月19日，2026北京亦庄人形机器人半程马拉松赛开跑，荣耀"闪电"机器人以50分26秒的净成绩夺冠，正式超越人类男子半马世界纪录。本届赛事规模达上届近5倍，汇聚全国超百支队伍及5支海外队伍，自主导航机型约占40%，标志着人形机器人在运动控制领域取得里程碑式突破。</div></div>
+    </div>
+
+    <div class="news-item" data-cat="tech">
+      <div class="news-header" onclick="toggleItem(this.parentElement)">
+        <div class="news-tag tag-tech">技</div>
+        <div class="news-info"><h3>华为发布行业首款横向阔折叠手机Pura X Max</h3></div>
+        <div class="news-arrow"><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M7.3 4.3a1 1 0 011.4 0L13 8.6a1 1 0 010 1.4l-4.3 4.3a1 1 0 01-1.4-1.4L10.6 10 7.3 6.7a1 1 0 010-1.4z"/></svg></div>
+      </div>
+      <div class="news-detail"><div class="news-detail-inner">华为4月20日在深圳举办Pura系列全球发布会，推出行业首款横向阔折叠手机Pura X Max。该机采用翻书式折叠设计，展开后内屏达7.69英寸WQHD+，比例接近正方形，视觉如小型平板。同场发布的还包括影像旗舰Pura 90系列。新机当晚开启预售，4月22日全渠道现货开售。</div></div>
+    </div>
+
+    <div class="news-item" data-cat="tech">
+      <div class="news-header" onclick="toggleItem(this.parentElement)">
+        <div class="news-tag tag-tech">技</div>
+        <div class="news-info"><h3>DeepSeek首度启动外部融资，目标估值超100亿美元</h3></div>
+        <div class="news-arrow"><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M7.3 4.3a1 1 0 011.4 0L13 8.6a1 1 0 010 1.4l-4.3 4.3a1 1 0 01-1.4-1.4L10.6 10 7.3 6.7a1 1 0 010-1.4z"/></svg></div>
+      </div>
+      <div class="news-detail"><div class="news-detail-inner">国产大模型公司DeepSeek近期首次启动外部融资，计划以不低于100亿美元估值募集不少于3亿美元资金。有国资背景的投资人士透露竞争异常激烈，"根本投不进去"。本轮融资若落地，将是中国AI大模型赛道迄今最大规模之一轮融资。创始人梁文锋的战略思路首次公开：以开源模型为底座，通过差异化商业服务实现变现。</div></div>
+    </div>
+
+    <div class="news-item" data-cat="sci">
+      <div class="news-header" onclick="toggleItem(this.parentElement)">
+        <div class="news-tag tag-sci">社</div>
+        <div class="news-info"><h3>中国首个"全民阅读活动周"4月20日启动</h3></div>
+        <div class="news-arrow"><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M7.3 4.3a1 1 0 011.4 0L13 8.6a1 1 0 010 1.4l-4.3 4.3a1 1 0 01-1.4-1.4L10.6 10 7.3 6.7a1 1 0 010-1.4z"/></svg></div>
+      </div>
+      <div class="news-detail"><div class="news-detail-inner">经国务院批准，国家新闻出版署等十五部门联合部署2026年首个"全民阅读活动周"，于4月20日至26日在全国范围开展。活动涵盖科普阅读计划、乡村阅读推广、青少年读书行动等多个专项。2026年是中国共产党成立105周年和"十五五"开局之年，活动旨在深化全民阅读、推进书香社会建设。</div></div>
+    </div>
+
+    <div class="news-item" data-cat="geo">
+      <div class="news-header" onclick="toggleItem(this.parentElement)">
+        <div class="news-tag tag-geo">地</div>
+        <div class="news-info"><h3>委内瑞拉启动全国集会抗议美国制裁</h3></div>
+        <div class="news-arrow"><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M7.3 4.3a1 1 0 011.4 0L13 8.6a1 1 0 010 1.4l-4.3 4.3a1 1 0 01-1.4-1.4L10.6 10 7.3 6.7a1 1 0 010-1.4z"/></svg></div>
+      </div>
+      <div class="news-detail"><div class="news-detail-inner">委内瑞拉20日启动持续近两周的全国性集会活动，抗议美国政府持续施加的经济制裁。自2025年美国对委内瑞拉采取军事行动并强行控制该国总统以来，拉美地区反美情绪持续升温。此次集会是委内瑞拉政府对美国施压政策的最新回应。</div></div>
+    </div>
+
+    <div class="news-item" data-cat="mil">
+      <div class="news-header" onclick="toggleItem(this.parentElement)">
+        <div class="news-tag tag-mil">军</div>
+        <div class="news-info"><h3>美"艾森豪威尔"号航母维修期间发生火灾，8人受伤</h3></div>
+        <div class="news-arrow"><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M7.3 4.3a1 1 0 011.4 0L13 8.6a1 1 0 010 1.4l-4.3 4.3a1 1 0 01-1.4-1.4L10.6 10 7.3 6.7a1 1 0 010-1.4z"/></svg></div>
+      </div>
+      <div class="news-detail"><div class="news-detail-inner">美国海军"艾森豪威尔"号核动力航空母舰4月14日在弗吉尼亚州诺福克海军造船厂进行维护时发生火灾，导致8名船员受伤。这是近期美国海军暴露的又一起安全事故，在美伊冲突持续的敏感时刻，航母维修事故引发外界对美军战备状态的担忧。</div></div>
+    </div>
+
+  </div>
+
+  <div class="footer">
+    数据来源：央视新闻、新华社、财新网、央广网、联合国新闻、CRUD科技、共同社、韩联社<br>
+    由 WorkBuddy 自动生成 · 仅供参考
+  </div>
+
+</div>
+
+<script>
+function toggleItem(el) {
+  el.classList.toggle('open');
+}
+
+function filterNews(cat, chip) {
+  document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+  chip.classList.add('active');
+
+  document.querySelectorAll('.news-item').forEach(item => {
+    if (cat === 'all' || item.dataset.cat === cat) {
+      item.style.display = '';
+      item.style.animation = 'none';
+      item.offsetHeight; // trigger reflow
+      item.style.animation = '';
+    } else {
+      item.style.display = 'none';
+    }
+  });
+}
+</script>
+</body>
+</html>

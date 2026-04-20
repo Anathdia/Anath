@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>国际要闻简报 - 2026年4月18日</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif; background: #f0f2f5; color: #1a1a2e; line-height: 1.7; }
+  .container { max-width: 780px; margin: 0 auto; padding: 20px 16px; }
+  .card { background: #fff; border-radius: 16px; padding: 32px 28px; margin-bottom: 16px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
+  .header { text-align: center; padding-bottom: 24px; border-bottom: 2px solid #e8ecf1; margin-bottom: 24px; }
+  .header h1 { font-size: 26px; font-weight: 700; color: #16213e; margin-bottom: 8px; }
+  .header .date { font-size: 14px; color: #7f8c8d; }
+
+  .headline { background: linear-gradient(135deg, #fff3e0 0%, #fff8e1 100%); border-left: 4px solid #ff6f00; border-radius: 12px; padding: 24px; margin-bottom: 28px; }
+  .headline h2 { font-size: 18px; color: #e65100; margin-bottom: 12px; }
+  .headline p { font-size: 15px; color: #333; }
+  .headline .warning { background: #fff3e0; border-radius: 8px; padding: 12px 16px; margin-top: 14px; font-size: 14px; color: #bf360c; border: 1px dashed #ff9800; }
+
+  .news-item {
+    background: #fafbfc;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    overflow: hidden;
+    border: 1px solid transparent;
+    transition: border-color 0.25s, box-shadow 0.25s;
+  }
+  .news-item.open {
+    border-color: #d0d7e2;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.07);
+  }
+  .news-summary {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 18px;
+    cursor: pointer;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .news-item.open .news-summary { background: #f0f4f8; }
+  .news-summary .tag {
+    flex-shrink: 0;
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 700;
+    color: #fff;
+  }
+  .news-summary .title-row { flex: 1; min-width: 0; }
+  .news-summary h3 { font-size: 15px; font-weight: 600; color: #1a1a2e; line-height: 1.5; }
+  .news-summary .arrow {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    transition: transform 0.3s ease;
+    color: #aaa;
+  }
+  .news-item.open .news-summary .arrow { transform: rotate(90deg); color: #555; }
+
+  .news-detail {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .news-item.open .news-detail { max-height: 500px; }
+  .news-detail-inner {
+    padding: 0 18px 18px 64px;
+    font-size: 14px;
+    color: #444;
+    line-height: 1.8;
+    border-top: 1px solid #ebeef2;
+    padding-top: 14px;
+  }
+
+  .tag-geo { background: #5c6bc0; }
+  .tag-econ { background: #26a69a; }
+  .tag-tech { background: #42a5f5; }
+  .tag-dip { background: #ef5350; }
+  .tag-mil { background: #78909c; }
+  .tag-sci { background: #8e24aa; }
+
+  .footer { text-align: center; font-size: 12px; color: #999; padding-top: 16px; border-top: 1px solid #eee; margin-top: 16px; }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="card">
+    <div class="header">
+      <h1>📰 国际要闻简报</h1>
+      <div class="date">📅 2026年4月18日（周六）| 覆盖过去 24 小时</div>
+    </div>
+
+    <div class="headline">
+      <h2>📌 头条 | 美伊局势戏剧性缓和，霍尔木兹海峡重开，油价暴跌超 11%</h2>
+      <p>过去 24 小时全球焦点集中于中东局势的急转。伊朗宣布<strong>有条件开放霍尔木兹海峡</strong>、恢复对所有商船通航，美国总统特朗普随后宣称伊朗同意"无限期暂停核计划"。两国正筹备在<strong>巴基斯坦伊斯兰堡</strong>举行正式谈判，核心方案涉及美国解冻 200 亿美元伊朗资产以换取伊朗交出浓缩铀库存。这一消息直接逆转了全球市场对航运危机的预期，国际油价单日暴跌超 11%，纳指实现 13 连阳（创 1992 年以来最长纪录）。</p>
+      <div class="warning">⚠️ 分歧犹存：伊朗外长强调拒绝"临时停火"，要求彻底终止冲突；伊朗已否决将浓缩铀移至国外的提案。</div>
+    </div>
+
+    <!-- 地缘 -->
+    <div class="news-item" onclick="toggle(this)">
+      <div class="news-summary">
+        <div class="tag tag-geo">地</div>
+        <div class="title-row"><h3>欧洲央行下调三大关键利率 25 个基点</h3></div>
+        <svg class="arrow" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M7.3 4.3a1 1 0 011.4 0L13 8.6a1 1 0 010 1.4l-4.3 4.3a1 1 0 01-1.4-1.4L10.6 10 7.3 6.7a1 1 0 010-1.4z"/></svg>
+      </div>
+      <div class="news-detail"><div class="news-detail-inner">
+        欧洲央行宣布将主要再融资利率、存款机制利率和边际借贷利率三大关键利率均下调 25 个基点，这是欧央行在当前降息周期中的又一次重要行动。在全球经济增长放缓、贸易摩擦持续的背景下，欧央行此举旨在进一步宽松金融环境，提振欧元区经济活力。市场分析认为，这标志着全球主要央行正加速转向宽松立场，未来可能还有进一步降息空间。
+      </div></div>
+    </div>
+
+    <div class="news-item" onclick="toggle(this)">
+      <div class="news-summary">
+        <div class="tag tag-geo">地</div>
+        <div class="title-row"><h3>冯德莱恩称欧盟要强化与北约关系引发争议</h3></div>
+        <svg class="arrow" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M7.3 4.3a1 1 0 011.4 0L13 8.6a1 1 0 010 1.4l-4.3 4.3a1 1 0 01-1.4-1.4L10.6 10 7.3 6.7a1 1 0 010-1.4z"/></svg>
+      </div>
+      <div class="news-detail"><div class="news-detail-inner">
+        欧盟委员会主席冯德莱恩公开发表讲话，强调欧盟应当进一步强化与北约的战略合作关系，深化跨大西洋安全纽带。此番表态在欧盟内部引发不小争议。以法国为首的"战略自主"派认为，欧盟应减少对美国的军事依赖，建立独立的防务体系；而东欧及波罗的海国家则支持强化北约协作。这一分歧再次暴露了欧盟内部在地缘战略方向上的深层矛盾。
+      </div></div>
+    </div>
+
+    <div class="news-item" onclick="toggle(this)">
+      <div class="news-summary">
+        <div class="tag tag-geo">地</div>
+        <div class="title-row"><h3>多国线上峰会讨论海湾通航，美以伊未被邀请</h3></div>
+        <svg class="arrow" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M7.3 4.3a1 1 0 011.4 0L13 8.6a1 1 0 010 1.4l-4.3 4.3a1 1 0 01-1.4-1.4L10.6 10 7.3 6.7a1 1 0 010-1.4z"/></svg>
+      </div>
+      <div class="news-detail"><div class="news-detail-inner">
+        国际社会就霍尔木兹海峡通航问题举行多边线上峰会，值得关注的是，美国、以色列和伊朗均未被邀请参会。会议主要讨论如何保障国际航运安全及各方在中东局势中的协调立场。分析人士认为，此次"绕开当事方"的会议模式反映出国际社会对美伊直接对话缺乏信心，试图通过多边框架寻求折中方案。
+      </div></div>
+    </div>
+
+    <!-- 经济 - 精简为2条 -->
+    <div class="news-item" onclick="toggle(this)">
+      <div class="news-summary">
+        <div class="tag tag-econ">经</div>
+        <div class="title-row"><h3>美股狂欢：纳指 13 连阳创纪录，美联储降息预期飙升</h3></div>
+        <svg class="arrow" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M7.3 4.3a1 1 0 011.4 0L13 8.6a1 1 0 010 1.4l-4.3 4.3a1 1 0 01-1.4-1.4L10.6 10 7.3 6.7a1 1 0 010-1.4z"/></svg>
+      </div>
+      <div class="news-detail"><div class="news-detail-inner">
+        地缘避险情绪退潮推动美股全线大涨。纳斯达克指数实现连续 13 个交易日上涨，创下 1992 年以来最长连涨纪录；标普 500 站上 7100 点。半导体和 AI 科技股持续领跑，资金涌入风险资产。中东局势缓和缓解了通胀压力，市场对美联储 12 月降息的概率预期从此前的 20% 飙升至 60%。不过美联储理事沃勒当日警告"高通胀 + 就业停滞"的棘手组合，暗示可能需要在更长时间维持高利率，与市场乐观预期形成博弈。
+      </div></div>
+    </div>
+
+    <div class="news-item" onclick="toggle(this)">
+      <div class="news-summary">
+        <div class="tag tag-econ">经</div>
+        <div class="title-row"><h3>IMF 下调美国经济增速，中东冲突拖累全球前景</h3></div>
+        <svg class="arrow" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M7.3 4.3a1 1 0 011.4 0L13 8.6a1 1 0 010 1.4l-4.3 4.3a1 1 0 01-1.4-1.4L10.6 10 7.3 6.7a1 1 0 010-1.4z"/></svg>
+      </div>
+      <div class="news-detail"><div class="news-detail-inner">
+        国际货币基金组织（IMF）将美国 2026 年经济增长预期从 2.7% 下调至 2.3%，警告中东冲突对全球供应链和能源市场造成严重冲击。IMF 同时指出，若冲突进一步扩大，全球 GDP 增速可能再降 0.3 至 0.5 个百分点。美元指数因此跌破 98 关口，人民币升破 6.82。此外，美监管机构已启动针对战争消息发布前后异常交易的"内幕交易"调查。
+      </div></div>
+    </div>
+
+    <!-- 科技 -->
+    <div class="news-item" onclick="toggle(this)">
+      <div class="news-summary">
+        <div class="tag tag-tech">技</div>
+        <div class="title-row"><h3>全球存储芯片短缺加剧，手机涨价预期升温</h3></div>
+        <svg class="arrow" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M7.3 4.3a1 1 0 011.4 0L13 8.6a1 1 0 010 1.4l-4.3 4.3a1 1 0 01-1.4-1.4L10.6 10 7.3 6.7a1 1 0 010-1.4z"/></svg>
+      </div>
+      <div class="news-detail"><div class="news-detail-inner">
+        据央视财经报道，全球存储芯片（DRAM 与 NAND Flash）正面临近年来最严重的供应短缺。AI 算力需求爆发式增长大幅挤占了存储芯片产能，部分晶圆厂产能调整和地缘因素进一步加剧供给紧张。行业分析师预计，智能手机、笔记本电脑等终端产品可能在二三季度出现 5%-15% 的涨幅。国内手机厂商已开始调整备货策略以应对成本上升压力。
+      </div></div>
+    </div>
+
+    <!-- 军事 -->
+    <div class="news-item" onclick="toggle(this)">
+      <div class="news-summary">
+        <div class="tag tag-mil">军</div>
+        <div class="title-row"><h3>以军宣称摧毁伊朗 60% 弹道导弹发射装置</h3></div>
+        <svg class="arrow" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M7.3 4.3a1 1 0 011.4 0L13 8.6a1 1 0 010 1.4l-4.3 4.3a1 1 0 01-1.4-1.4L10.6 10 7.3 6.7a1 1 0 010-1.4z"/></svg>
+      </div>
+      <div class="news-detail"><div class="news-detail-inner">
+        以色列国防军披露了此轮对伊朗军事行动的详细战果，宣称已成功摧毁伊朗约 60% 的固定弹道导弹发射装置，大幅削弱了伊朗的中远程打击能力，并发布了部分行动的现场影像资料。分析人士指出，尽管军事层面以军占据优势，但外交谈判桌上的博弈远未结束——伊朗在核问题上的强硬立场（拒绝转移浓缩铀、要求彻底停火而非临时停火）意味着双方达成持久和平协议仍面临巨大障碍，局势存在反复的可能。
+      </div></div>
+    </div>
+
+    <div class="news-item" onclick="toggle(this)">
+      <div class="news-summary">
+        <div class="tag tag-mil">军</div>
+        <div class="title-row"><h3>美国"艾森豪威尔"号航母在港口失火，8 名船员受伤</h3></div>
+        <svg class="arrow" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M7.3 4.3a1 1 0 011.4 0L13 8.6a1 1 0 010 1.4l-4.3 4.3a1 1 0 01-1.4-1.4L10.6 10 7.3 6.7a1 1 0 010-1.4z"/></svg>
+      </div>
+      <div class="news-detail"><div class="news-detail-inner">
+        综合美国全国广播公司（NBC）及福克斯新闻报道，当地时间 4 月 14 日，美国海军"艾森豪威尔"号核动力航母在弗吉尼亚州朴次茅斯海军造船厂维护期间突发火灾，造成 8 名船员受伤。事故具体原因仍在调查中。值得注意的是，这已是美海军近期发生的又一起航母安全事故。事故发生后，美海军高层下令对所有在港维护舰艇的安全程序进行全面审查。该航母此前长期部署在中东地区，此次事故可能对其后续部署计划产生影响。
+      </div></div>
+    </div>
+
+    <div class="news-item" onclick="toggle(this)">
+      <div class="news-summary">
+        <div class="tag tag-mil">军</div>
+        <div class="title-row"><h3>美国因伊朗战事或推迟向欧洲国家交付武器</h3></div>
+        <svg class="arrow" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M7.3 4.3a1 1 0 011.4 0L13 8.6a1 1 0 010 1.4l-4.3 4.3a1 1 0 01-1.4-1.4L10.6 10 7.3 6.7a1 1 0 010-1.4z"/></svg>
+      </div>
+      <div class="news-detail"><div class="news-detail-inner">
+        据新华社报道，受当前伊朗战事局势影响，美国军工产能和物流链条受到严重挤压，可能导致无法按期向欧洲盟友交付武器装备。此事在欧洲引发担忧，部分国家担心武器交付延迟将影响自身防务计划。这也从侧面反映出，中东冲突的外溢效应已不仅限于经济和能源领域，正在实质性地影响全球安全合作格局。
+      </div></div>
+    </div>
+
+    <!-- 外交 -->
+    <div class="news-item" onclick="toggle(this)">
+      <div class="news-summary">
+        <div class="tag tag-dip">外</div>
+        <div class="title-row"><h3>习近平结束对越、马、柬三国国事访问回到北京</h3></div>
+        <svg class="arrow" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M7.3 4.3a1 1 0 011.4 0L13 8.6a1 1 0 010 1.4l-4.3 4.3a1 1 0 01-1.4-1.4L10.6 10 7.3 6.7a1 1 0 010-1.4z"/></svg>
+      </div>
+      <div class="news-detail"><div class="news-detail-inner">
+        国家主席习近平圆满结束对越南、马来西亚和柬埔寨三国的国事访问乘专机回到北京。在访问柬埔寨期间，习近平同柬埔寨首相举行会谈，双方就深化中柬全面战略合作伙伴关系、携手构建新时代全天候中柬命运共同体达成重要共识。柬埔寨各界对此次访问给予高度评价，认为这将进一步推动两国在基础设施、经贸投资、人文交流等领域的深度合作。整个东南亚之行被视为中国巩固周边外交、深化与东盟国家关系的重要举措。
+      </div></div>
+    </div>
+
+    <div class="news-item" onclick="toggle(this)">
+      <div class="news-summary">
+        <div class="tag tag-dip">外</div>
+        <div class="title-row"><h3>巴基斯坦积极斡旋美伊谈判，出动空军护送伊朗代表</h3></div>
+        <svg class="arrow" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M7.3 4.3a1 1 0 011.4 0L13 8.6a1 1 0 010 1.4l-4.3 4.3a1 1 0 01-1.4-1.4L10.6 10 7.3 6.7a1 1 0 010-1.4z"/></svg>
+      </div>
+      <div class="news-detail"><div class="news-detail-inner">
+        巴基斯坦正以积极姿态斡旋美伊双边谈判。据报道，在上一轮美伊接触中，巴基斯坦空军出动战机护送伊朗谈判代表团安全回国。目前伊斯兰堡正加急翻新迎宾大道和相关设施，为即将到来的美伊正式谈判做准备。分析指出，巴基斯坦作为伊斯兰大国和中美两国的传统伙伴，其独特的地缘位置使其成为理想的谈判中间人。若谈判成功，不仅将结束中东危机，也将显著提升巴基斯坦的国际地位。
+      </div></div>
+    </div>
+
+    <!-- 社会/文化 -->
+    <div class="news-item" onclick="toggle(this)">
+      <div class="news-summary">
+        <div class="tag tag-sci">社</div>
+        <div class="title-row"><h3>我国三项文献遗产入选世界记忆名录</h3></div>
+        <svg class="arrow" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M7.3 4.3a1 1 0 011.4 0L13 8.6a1 1 0 010 1.4l-4.3 4.3a1 1 0 01-1.4-1.4L10.6 10 7.3 6.7a1 1 0 010-1.4z"/></svg>
+      </div>
+      <div class="news-detail"><div class="news-detail-inner">
+        联合国教科文组织世界记忆工程国际咨询委员会会议近日审议通过，我国申报的三项文献遗产成功入选《世界记忆名录》。至此，我国入选该名录的文献遗产总数进一步增加，彰显了中华文明的深厚底蕴和全球文化影响力。与此同时，2025 年联合国中文日暨总台第五届海外影像节同日举办，以"中文：连接世界的桥梁"为主题，展现中文文化的国际魅力。
+      </div></div>
+    </div>
+
+    <div class="footer">
+      📌 以上为自动生成的国际要闻简报，仅供参考<br>
+      数据来源：新华社、央视网、新浪财经、环球时报、联合国新闻、财联社、中华网等
+    </div>
+  </div>
+</div>
+
+<script>
+function toggle(el) {
+  el.classList.toggle('open');
+}
+</script>
+</body>
+</html>
